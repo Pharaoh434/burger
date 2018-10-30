@@ -9,14 +9,7 @@ var app = express();
 app.use(express.static(__dirname + '/public/'));
 // Serve static content for the app from the 'public' directory
 app.use(express.static(process.cwd() + '/public'));
-var connection = mysql.createConnection(...);
-var del = connection._protocol._delegateError;
-connection._protocol._delegateError = function(err, sequence){
-  if (err.fatal) {
-    console.trace('fatal error: ' + err.message);
-  }
-  return del.call(this, err, sequence);
-};
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Override with POST having ?_method=DELETE
